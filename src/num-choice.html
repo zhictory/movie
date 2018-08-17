@@ -1,0 +1,101 @@
+<!-- 数量选择器 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .amount-btn {
+      float: left;
+      padding: 5px 0;
+    }
+
+    .amount-btn span {
+      float: left;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #ccc;
+      background: #ccc;
+      color: #333;
+      font-size: 18px;
+      text-align: center;
+      line-height: 16px;
+      cursor: default;
+    }
+
+    .amount-btn .disabled {
+      color: #fff;
+    }
+
+    .amount-btn input {
+      float: left;
+      padding: 0;
+      width: 38px;
+      height: 18px;
+      border: 1px solid #ccc;
+      color: #333;
+      font-size: 12px;
+      text-align: center;
+      line-height: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="amount-btn">
+    <span class="disabled" id="J_amountSub">-</span>
+    <input type="text" value="1" id="J_amountInput" />
+    <span id="J_amountPlus">+</span>
+  </div>
+</body>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script>
+  !(function () {
+    var maxAmount = parseInt($('.amount-tip').attr('data-maxamount')); //最大申请数量    
+    toggleBtnStatus();
+    $('#J_amountPlus').on('click', function () {
+      if ($(this).hasClass('disabled')) {
+        return;
+      }
+      changeAmount('+');
+    });
+    $('#J_amountSub').on('click', function () {
+      if ($(this).hasClass('disabled')) {
+        return;
+      }
+      changeAmount('-');
+    });
+    $('#J_amountInput').on('input', function (e) { changeAmount(); }); // 改变数量（加、减或输入）   
+    function changeAmount(type) {
+      var applyAmount = 1;
+      if ($('#J_amountInput').val() === '') {
+        toggleBtnStatus();
+        return;
+      } else {
+        applyAmount = parseInt($('#J_amountInput').val());
+        !/[\d]/.test(applyAmount) ? applyAmount = 1 : applyAmount; // 输入非数字则转为1       
+      }
+      type === '+' ? ++applyAmount : type === '-' ? --applyAmount : applyAmount;
+      applyAmount < 1 ? applyAmount = 1 : applyAmount > maxAmount ? applyAmount = maxAmount : applyAmount;
+      $('#J_amountInput').val(applyAmount);
+      toggleBtnStatus();
+    } // 切换加减按钮的状态    
+    function toggleBtnStatus() {
+      var subBtn = $('#J_amountSub');
+      var plusBtn = $('#J_amountPlus');
+      if ($('#J_amountInput').val() === '') {
+        subBtn.addClass('disabled');
+        plusBtn.addClass('disabled');
+        return;
+      }
+      var applyAmount = parseInt($('#J_amountInput').val());
+      if (applyAmount <= 1) { subBtn.addClass('disabled'); } else { subBtn.removeClass('disabled'); }
+      if (applyAmount >= maxAmount) { plusBtn.addClass('disabled'); } else { plusBtn.removeClass('disabled'); }
+    }
+  })();
+</script>
+
+</html>

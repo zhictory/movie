@@ -1,0 +1,61 @@
+/* 水平居中 */
+
+div {
+  width: 750px;
+  margin: 0 auto;
+}
+
+/* 完全居中 */
+
+div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+}
+
+div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 颜色淡入 */
+
+a {
+  color: #000;
+  transition: color 0.5s linear;
+}
+
+a:hover {
+  color: #f60;
+}
+
+/* CSS 实现背景透明，文字不透明 */
+
+.content {
+  background: #fff;
+  /* 兼容 IE，IE 滤镜 */
+  filter: Alpha(opacity=60);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.content p {
+  /* 实现 IE 文字不透明 */
+  position: relative;
+}
+
+/* 渐变 */
+
+div {
+  width: 290px;
+  height: 20px;
+  /* IE8 和 IE9 渐变 */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#00ffffff, endColorstr=#ffffffff, gradientType=1);
+  background: linear-gradient(to left, #fff 0%, transparent 58%);
+}
