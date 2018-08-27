@@ -22,26 +22,26 @@
 
 <body>
   <p>1. 内联元素两两之间为什么会有空隙呢？</p>
-  <img src="./assets/1.jpg" alt="">
-  <img src="./assets/1.jpg" alt="">
-  <img src="./assets/1.jpg" alt="">
+  <img src="../assets/1.jpg" alt="">
+  <img src="../assets/1.jpg" alt="">
+  <img src="../assets/1.jpg" alt="">
   <p>其实空隙是空白节点，比如空格或换行符。</p>
   <p>既然是空白字符引起，那么在 HTML 中删掉空白字符。</p>
-  <img src="./assets/1.jpg" alt=""><img src="./assets/1.jpg" alt=""><img src="./assets/1.jpg" alt="">
+  <img src="../assets/1.jpg" alt=""><img src="../assets/1.jpg" alt=""><img src="../assets/1.jpg" alt="">
   <p>如果不想修改 HTML，修改 CSS 也是可以的，给父元素设置字体为 0，使得空白节点消失，并给子元素重新设置字体大小。</p>
   <div class="div-1">
-    <img src="./assets/1.jpg" alt="">
-    <img src="./assets/1.jpg" alt="">
-    <img src="./assets/1.jpg" alt="">
+    <img src="../assets/1.jpg" alt="">
+    <img src="../assets/1.jpg" alt="">
+    <img src="../assets/1.jpg" alt="">
   </div>
   <hr>
   <p>2. div > img 时，img 下边缘为什么会有空白间隙呢?</p>
   <div class="div-2">
-    <img src="./assets/1.jpg" alt="">
+    <img src="../assets/1.jpg" alt="">
   </div>
   <p>原来，图片文字等 inline 或 inline-block 元素默认是和父级元素的 baseline 对齐的，而 baseline 又和父级底边有一定距离，这个距离和 font 相关。</p>
   <div class="div-2">
-    <img class="img-2" src="./assets/1.jpg" alt="">
+    <img class="img-2" src="../assets/1.jpg" alt="">
   </div>
 </body>
 
