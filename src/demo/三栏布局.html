@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    section {
+      float: left;
+      width: 100%;
+      margin-right: -200px;
+      background: #ffc0cb;
+    }
+
+    nav {
+      float: left;
+      width: 200px;
+      height: 100vh;
+      background: #afeeee;
+    }
+
+    div {
+      margin-left: 200px;
+      margin-right: 200px;
+      height: 100vh;
+      background: #fffacd;
+    }
+
+    aside {
+      float: left;
+      width: 200px;
+      height: 100vh;
+      background: #afeeee;
+    }
+  </style>
+</head>
+
+<body>
+
+  <article>
+    <!-- 左中栏 section 浮动，宽度占满，右边空出 -->
+    <section>
+      <!-- 左栏 nav 浮动且固定宽度；中栏 div 不浮动且不固定宽度，两边空出 -->
+      <nav>nav</nav>
+      <div>div</div>
+    </section>
+    <!-- 右栏 aside 浮动且固定宽度 -->
+    <aside>aside</aside>
+  </article>
+</body>
+
+</html>

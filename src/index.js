@@ -3,7 +3,7 @@
    * 一个错误处理函数和测试案例的代码
    */
   global.onerror = handleError;
-  let msg = ``;
+  let msg = "";
   function handleError(desc, page, line) {
     msg = "An error has occurred.";
     msg += "Line: " + line;
@@ -70,7 +70,7 @@
    * 大数阶乘
    * 将一个数字的每一位（个位、十位、百位、千位……）拆分出来，构成一个数组。
    * 每次计算时，针对每一位进行数学运算，并遵循逢十进一的原则，修改数组中每一个数组元素的内容。
-   * 在完成所有运算之后，可以通过数组的join方法，将每一位连接起来，组成“字符串”输出
+   * 在完成所有运算之后，得到的数组是逆序的，要先 reverse 再 join，将每一位连接起来，组成“字符串”输出大数
    * 
    * https://www.cnblogs.com/h5course/p/7566812.html
    */
@@ -80,9 +80,9 @@
 
     for (let num = 2; num <= maxNum; num++) {
       for (let i = 0, plus = 0; i < result.length || plus != 0; i++) {
-        const count = (i < result.length) ? (num * result[i] + plus) : plus;
-        result[i] = count % 10;
-        plus = (count - result[i]) / 10;
+        const count = (i < result.length) ? (num * result[i] + plus) : plus; // 如 4*6=24，count 就是 24 再加上 plus
+        result[i] = count % 10; // 如 4*6=24，result[i] 就是 4
+        plus = (count - result[i]) / 10; // 如 4*6=24，plus 就是 2
       };
     };
 
@@ -95,9 +95,10 @@
    * 单词折行算法（canvas）
    * Divide an entire phrase in an array of phrases, all with the max pixel length given.
    * The words are initially separated by the space char.
-   * @param phrase
-   * @param length
-   * @return
+   * @param {*} ctx 
+   * @param {*} phrase 
+   * @param {*} maxPxLength 
+   * @param {*} textStyle 
    */
   function getLines(ctx, phrase, maxPxLength, textStyle) {
 
@@ -153,7 +154,7 @@
         console.log(starttime--);
       } else {
         console.log("倒计时完啦！");
-        clearInterval(timer);//清除计时器
+        clearInterval(timer); // 清除计时器
       }
     }, 1000);
   }
@@ -175,7 +176,7 @@
       let duringHours = parseInt((duringTimes % 86400) / 3600);
       let duringMinutes = parseInt((duringTimes % 86400 % 3600) / 60);
       let duringSeconds = duringTimes % 86400 % 3600 % 60;
-      // 完善时间字段
+      // 格式化时间字段
       duringHours < 10 ? duringHours = "0" + duringHours : duringHours = duringHours;
       duringMinutes < 10 ? duringMinutes = "0" + duringMinutes : duringMinutes = duringMinutes;
       duringSeconds < 10 ? duringSeconds = "0" + duringSeconds : duringSeconds = duringSeconds;
@@ -219,6 +220,7 @@
     }
   }
 
+  // 使用 createXHR
   // var xhr = createXHR();
   // xhr.onreadystatechange = function () {
   //   if (xhr.readyState === 4) {
@@ -240,9 +242,9 @@
 }
 {
   /**
-   * 背景：
    * 活动配置秒杀时，会将秒杀商品的数据输出在页面上，由前端自行获取处理。
    * 现在想在一堆数据中取出每次秒杀的开始时间，并格式化输出。
+   * @param {String} str 
    */
   function matchTime(str) {
 
@@ -269,18 +271,11 @@
    * @param {String} value 
    */
   function addUrlParam(url, name, value) {
-    if (typeof url !== "string") {
-      throw new TypeError("the url is not a string");
+    if (typeof url === "" && (typeof value === "string" || typeof value === "number")) {
+      url += (url.indexOf("?") == -1 ? "?" : "&"); // 判断原来的URL后面是否已有参数
+      url += encodeURIComponent(name) + "=" + encodeURIComponent(value);
+      return url;
     }
-    if (!(typeof name === "string" || typeof name === "number")) {
-      throw new TypeError("the name is not a string or a number");
-    }
-    if (!(typeof value === "string" || typeof value === "number")) {
-      throw new TypeError("the value is not a string or a number");
-    }
-    url += (url.indexOf("?") == -1 ? "?" : "&");//判断原来的URL后面是否已有参数
-    url += encodeURIComponent(name) + "=" + encodeURIComponent(value);
-    return url;
   }
 }
 {
@@ -289,11 +284,10 @@
    * @param {String} name 
    */
   function getUrlParam(name) {
-    if (!(typeof name === "string" || typeof name === "number")) {
-      throw new TypeError("Error: The name is not a string or a number!");
+    if (typeof name === "string" || typeof name === "number") {
+      const value = location.search.match(new RegExp("[\?\&]${name}=([^\&]*)(\&?)", "i"));
+      return value ? decodeURIComponent(value[1]) : "";
     }
-    var value = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]*)(\&?)", "i"));
-    return !!value ? value[1] : "";
   }
 }
 {
@@ -301,7 +295,25 @@
    * 查询所有 URL 参数
    */
   function getUrlParamAll() {
-    const param = location.href.match(/\?([^=]*=[^&]*&?)*/g);
-    return param && param[0].slice(1).split('&');
+    return location.search.slice(1).split('&').map(item => decodeURIComponent(item));
+  }
+}
+{
+  /**
+   * 使用 rem
+   * rem 指相对于根元素字体大小的倍数。
+   * rem 公式：
+   * 如果想要 1rem 相当于 100px，就以 100px 为基准得到公式 fontSize/clientWidth = 100/uiWidth，这个 clientWidth 通过 js 获取，再计算出 fontSize。
+   * 再由公式 1rem/100px = xrem/fontSize 按比例使用 rem。
+   */
+  function setRem () {
+    const html = document.getElementsByTagName('html')[0];
+    const uiWidth = 750;
+    const maxSize = 100;
+    const clientWidth = document.documentElement.clientWidth;
+    if (clientWidth > uiWidth) {
+      clientWidth = uiWidth;
+    }
+    html.style.fontSize = clientWidth * (maxSize / uiWidth) + 'px';
   }
 }

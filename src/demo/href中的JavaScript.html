@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .div {
+      width:200px;
+      height:1000px;
+      background:#ffc0cb;
+    }
+  </style>
+</head>
+<body>
+  <p>在 a 标签的 href 属性与 onclick事件属性中使用 JavaScript 有什么区别：</p>
+  <ol>
+    <li><a href="" onclick="fun1()">链接的 onclick 先执行，其次是 href 属性。</a></li>
+    <li><a href="" onclick="fun2()">如果想让 href 属性不执行，onclick 必须返回 false。</a></li>
+    <li><a href="javascript:fun3()">如果在链接的 href 属性中的函数有返回值，当前页面的内容将替换为此函数的返回值。</a></li>
+    <li><div class="div">此处高 1000px。</div></li>
+    <li><a href="javascript:void(0)" onclick="fun4()">回到顶部，href 为 javascript:void(0) 可以防止页面跳动。</a></li>
+    <li><a href="#" onclick="fun4()">回到顶部，href 为 #。</a></li>
+  </ol>
+  <script>
+    function fun1() {
+      alert('执行 onclick');
+    }
+    function fun2() {
+      alert('执行 onclick');
+      return false;
+    }
+    function fun3() {
+      return '执行 href 属性中的函数';
+    }
+    function fun4() {
+      const obj = document.documentElement;
+      setTimeout(()=>{
+        if (obj.scrollTop !== 0) {
+          obj.scrollTop = obj.scrollTop - 30;
+          arguments.callee();
+        }
+      }, 10);
+    }
+  </script>
+</body>
+</html>

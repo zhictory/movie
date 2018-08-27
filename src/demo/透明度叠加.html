@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .outer-1 {
+      margin: 10px;
+      width: 500px;
+      height: 500px;
+      background-color: #fff;
+      opacity: 1;
+    }
+
+    .inner-1 {
+      width: 500px;
+      height: 500px;
+      background-color: #ffb6c1;
+      opacity: .81;
+    }
+
+    .outer-2 {
+      margin: 10px;
+      width: 500px;
+      height: 500px;
+      background-color: #fff;
+      opacity: .9;
+    }
+
+    .inner-2 {
+      width: 500px;
+      height: 500px;
+      background-color: #ffb6c1;
+      opacity: .9;
+    }
+  </style>
+</head>
+
+<body>
+  <p>如果两个盒子是父子关系且两个都有 opacity 值，则子盒的透明值父子 opacity 值相乘。</p>
+  <div class="outer-1">
+    <div class="inner-1">inner 的 opacity 是 .81，outer 的 opacity 是 1，相乘是 .81。背景颜色加透明后是 #ffc4cd。</div>
+  </div>
+  <div class="outer-2">
+    <div class="inner-2">inner 的 opacity 是 .9，outer 的 opacity 是 .9，相乘是 .81。背景颜色加透明后是 #ffc4cd，与上面效果一样，证明结论是正确的。</div>
+  </div>
+</body>
+
+</html>

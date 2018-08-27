@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      width: 350px;
+      height: 350px;
+      background-size: 100%;
+      background-position: center;
+      transition: all .5s ease;
+    }
+
+    .div-1 {
+      background-image: url(./assets/1.jpg);
+    }
+
+    .div-1:hover {
+      background-size: 120%;
+    }
+
+    .div-2 {
+      background-image: url(./assets/1.jpg);
+    }
+
+    .div-2:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<body>
+  <p>background-size</p>
+  <div class="div-1"></div>
+  <p>transform: scale</p>
+  <div class="div-2"></div>
+</body>
+
+</html>

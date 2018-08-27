@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .select-label {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <p>当想给 select 加 placeholder 时，由于 HTML5 属性 placeholder 只适用于 input 和 textarea，只能退而求其次使用以下方法，使用一个 disabled 的 option 代替：</p>
+  <select name="" id="">
+    <option class="select-label" value="0" disabled selected>加盟类别</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
+</body>
+
+</html>

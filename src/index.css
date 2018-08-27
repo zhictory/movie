@@ -36,18 +36,13 @@ a:hover {
   color: #f60;
 }
 
-/* CSS 实现背景透明，文字不透明 */
+/* 背景透明，文字不透明 */
 
-.content {
+div {
   background: #fff;
   /* 兼容 IE，IE 滤镜 */
   filter: Alpha(opacity=60);
   background: rgba(255, 255, 255, 0.6);
-}
-
-.content p {
-  /* 实现 IE 文字不透明 */
-  position: relative;
 }
 
 /* 渐变 */
@@ -58,4 +53,41 @@ div {
   /* IE8 和 IE9 渐变 */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#00ffffff, endColorstr=#ffffffff, gradientType=1);
   background: linear-gradient(to left, #fff 0%, transparent 58%);
+}
+
+/* 多行文本末显示省略号 */
+
+div {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* scale 防止抖动 */
+
+div {
+  /* chrome下会抖动，IE下会抖动 */
+  transform: scale(1.1);
+  transition: transform 1s ease;
+}
+
+div {
+  /* chrome和Firefox下不会抖动，IE会抖动 */
+  transform: scale(1.13);
+  transition: transform 1s ease;
+}
+
+/* 文本两端对齐 */
+
+div {
+  /* 主流浏览器 */
+  text-align: justify;
+}
+
+div {
+  /* IE */
+  text-align: justify;
+  text-justify: inter-ideograph;
+  /* text-justify 只支持 IE */
 }
