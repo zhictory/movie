@@ -55,6 +55,14 @@ div {
   background: linear-gradient(to left, #fff 0%, transparent 58%);
 }
 
+/* 单行文本末显示省略号 */
+
+div {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* 多行文本末显示省略号 */
 
 div {
