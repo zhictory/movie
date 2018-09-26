@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    img {
+      vertical-align: middle;
+    }
+    .four-images {
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto
+    }
+
+    .four-images__top {
+      overflow: hidden
+    }
+
+    .four-images__top-left {
+      float: left;
+      width: 68.15%;
+      max-width: 736px
+    }
+
+    .four-images__bottom {
+      overflow: hidden;
+      margin-top: -31.8%;
+      width: 68.15%;
+      max-width: 736px
+    }
+
+    .four-images__image-1 {
+      padding: 0 24px 24px 0;
+      float: left;
+      width: 50%;
+      max-width: 368px;
+      background: 0 0
+    }
+
+    .four-images__image-2 {
+      float: left;
+      width: 31.85%;
+      max-width: 344px;
+      background: 0 0
+    }
+
+    .four-images__image-3 {
+      padding: 0 24px 0 0;
+      float: left;
+      background: 0 0
+    }
+
+    .four-images__img {
+      width: 100%
+    }
+
+    @media screen and (max-width:767.98px) {
+      .four-images {
+        max-width: 690px
+      }
+      .four-images__top {
+        overflow: hidden
+      }
+      .four-images__top-left {
+        width: 50%;
+        max-width: 360px;
+        margin-bottom: 30px
+      }
+      .four-images__bottom {
+        margin-top: 0;
+        width: 100%;
+        max-width: 690px
+      }
+      .four-images__image-1 {
+        padding: 0 15px 23px 0;
+        width: 100%;
+        max-width: 345px
+      }
+      .four-images__image-1:last-child {
+        padding-bottom: 0
+      }
+      .four-images__image-2 {
+        padding-left: 15px;
+        width: 50%;
+        max-width: 345px
+      }
+      .four-images__image-3 {
+        padding: 0
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="four-images">
+    <div class="four-images__top">
+      <div class="four-images__top-left">
+        <div class="four-images__image-1"><img class="four-images__img" src="http://localhost:8093/themes/cards/four_images/1/dist/assets/bag-62873ee2c0.png" alt=""></div>
+        <div class="four-images__image-1"><img class="four-images__img" src="http://localhost:8093/themes/cards/four_images/1/dist/assets/hat-f2b502ab86.png" alt=""></div>
+      </div>
+      <div class="four-images__image-2"><img class="four-images__img" src="http://localhost:8093/themes/cards/four_images/1/dist/assets/cloth-5da998ec5a.png" alt=""></div>
+    </div>
+    <div class="four-images__bottom">
+      <div class="four-images__image-3"><img class="four-images__img" src="http://localhost:8093/themes/cards/four_images/1/dist/assets/socks-4097f63bc5.png" alt=""></div>
+    </div>
+  </div>
+</body>
+
+</html>
