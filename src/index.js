@@ -299,11 +299,12 @@
 {
   /**
    * 查询指定 URL 参数
-   * @param {String} name 
+   * @param {String} url 链接
+   * @param {String} name 参数key
    */
-  function getUrlParam(name) {
+  function getUrlParam(url, name) {
     if (typeof name === "string" || typeof name === "number") {
-      const value = location.search.match(new RegExp("[\?\&]${name}=([^\&]*)(\&?)", "i"));
+      const value = url.match(new RegExp(`[\?\&]${name}=([^\&]*)(\&?)`, "i"));
       return value ? decodeURIComponent(value[1]) : "";
     }
   }
@@ -335,3 +336,5 @@
     html.style.fontSize = clientWidth * (maxSize / uiWidth) + 'px';
   }
 }
+
+module.exports = { getRandom, getUrlParam };
