@@ -1,0 +1,146 @@
+const movieObj = document.querySelector("#j_movie");
+const movieListObj = document.querySelector("#j_movie-list");
+const canvas = document.querySelector(".pieces-canvas");
+let movieWon = {},
+  movies = [],
+  tid = null;
+
+const fetchMovieList = () => {
+  fetch("http://localhost:9999/api/movie/list")
+    .then(res => res.json())
+    .then(data => {
+      movies = data;
+      movieListObj.innerHTML = "";
+      for (const key in movies) {
+        !movies[key].watched
+          ? $(movieListObj).append(
+              $(
+                `<li class="movie-item">《${
+                  movies[key].title
+                }》<span class="iconfont icon-check-circle"></span></li>`
+              )
+            )
+          : $(movieListObj).append(
+              $(
+                `<li class="movie-item is-watched">《${
+                  movies[key].title
+                }》<span class="iconfont icon-check-circle"></span></li>`
+              )
+            );
+      }
+      const context = canvas.getContext("2d");
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      clearInterval(tid);
+      tid = null;
+      tid = lottery();
+    });
+};
+fetchMovieList();
+document.querySelector("#j_movie-list").addEventListener("click", e => {
+  e.target.classList.toggle("is-watched");
+  const index = Array.from(document.querySelectorAll(".movie-item")).indexOf(
+    e.target
+  );
+  fetch("http://localhost:9999/api/movie/watched", {
+    body: JSON.stringify({
+      title: movies[index].title,
+      watched: !movies[index].watched
+    }),
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(res => {
+    fetchMovieList();
+    // e.target.classList.contains("is-watched");
+  });
+  if (filterMovie().length && !tid) {
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    tid = lottery();
+  }
+});
+
+function getRandom(lowerValue, upperValue) {
+  return Math.floor(Math.random() * (upperValue - lowerValue + 1) + lowerValue);
+}
+let filterMovie = () => {
+  return movies.filter(movie => {
+    return !movie.watched;
+  });
+};
+let lottery = () =>
+  setInterval(() => {
+    const filter = filterMovie();
+    if (filter.length) {
+      movieWon = filter[getRandom(0, filter.length - 1)];
+    } else {
+      movieWon = {
+        title: "不，你什么都不想看",
+        watched: false,
+        image:
+          "http://5b0988e595225.cdn.sohucs.com/images/20181218/2a841d8bafd342abb6a17a3f73e51a56.jpeg"
+      };
+      clearInterval(tid);
+      tid = null;
+      piecesLottery(movieWon);
+    }
+    movieObj.innerHTML = movieWon.title;
+  }, 10);
+let piecesLottery = movie => {
+  // Options for customization, see full list below
+  const image = new Image();
+  image.src = movie.image;
+  image.onload = () => {
+    canvas.setAttribute("width", image.width);
+    canvas.setAttribute("height", image.height);
+    var options = {
+      canvas: ".pieces-canvas",
+      image: image,
+      animation: {
+        duration: 800,
+        delay: 0,
+        easing: "easeInOutBack"
+      },
+      piecesWidth: 30,
+      piecesSpacing: 0
+    };
+
+    // Initialize a new instance, by default the pieces will be 'hidden'
+    var piece = new Pieces(options);
+
+    // Show pieces using default options. See the full list of available operations below.
+    piece.showPieces();
+  };
+};
+document.querySelector("#j_stop").addEventListener("click", () => {
+  piecesLottery(movieWon);
+  clearInterval(tid);
+  tid = null;
+});
+document.querySelector("#j_start").addEventListener("click", () => {
+  const context = canvas.getContext("2d");
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  !tid && (tid = lottery());
+});
+const inputTitle = document.querySelector("#j_movie-title");
+const inputImage = document.querySelector("#j_movie-image");
+document.querySelector("#j_movie-add").addEventListener("click", () => {
+  const title = inputTitle.value;
+  const image = inputImage.value;
+  title &&
+    image &&
+    fetch("http://localhost:9999/api/movie/add", {
+      body: JSON.stringify({
+        title: title,
+        watched: false,
+        image: image
+      }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => {
+      fetchMovieList();
+    });
+});
