@@ -15,7 +15,16 @@
     />
     <style>
       body {
+        background: rgb(26, 26, 26);
+      }
+      article {
         margin: 20px;
+        display: grid;
+        grid-template-columns: 1fr 500px;
+        border: 1px solid #c2c2c2;
+        padding: 20px;
+        background: #fff;
+        box-shadow: inset 0 0 10px 5px #c2c2c2;
       }
       .iconfont {
         display: none;
@@ -27,6 +36,8 @@
         /* display: inline; */
       }
       .pieces-canvas {
+        position: relative;
+        z-index: 10;
         display: block;
         margin: 20px auto;
       }
@@ -37,6 +48,15 @@
       }
       .movie-item {
         cursor: pointer;
+      }
+      .icon-close-circle {
+        color: #c2c2c2;
+      }
+      .icon-close-circle:hover {
+        color: red;
+      }
+      .movie-item:hover .icon-close-circle {
+        display: inline;
       }
       .movie {
         text-align: center;
@@ -49,20 +69,72 @@
         outline: none;
         padding: 0 10px;
       }
+      .left {
+        position: relative;
+        border-right: 1px solid #c2c2c2;
+      }
+      .right {
+        position: relative;
+      }
+      .left::before {
+        content: "取票机";
+      }
+      .right::before {
+        content: "爆米花";
+      }
+      .left::before,
+      .right::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-30deg);
+        font-size: 150px;
+        color: #fbff04;
+        text-align: center;
+        white-space: nowrap;
+        opacity: 0.1;
+      }
+      .left .header [type="button"] {
+        width: 60px;
+        height: 60px;
+        border: none;
+        border-radius: 50%;
+      }
+      #j_stop {
+        background: rgb(255, 105, 105);
+      }
+      #j_start {
+        background: rgb(61, 192, 0);
+      }
     </style>
   </head>
   <style></style>
   <body>
-    <p>
-      <input id="j_start" type="button" value="开始摇奖" />
-      <input id="j_stop" type="button" value="今晚看啥" />
-    </p>
-    <h4>电影列表</h4>
-    <ul class="movie-list" id="j_movie-list"></ul>
-    <p><label for="">你还想看啥：</label><input type="text" id="j_movie-title" placeholder="电影名"> <input type="text" id="j_movie-image" placeholder="电影封面"> <input id="j_movie-add" type="button" value="请告诉我"></p>
-    <p class="tips">请不要把全部电影都点一遍</p>
-    <div class="movie" id="j_movie"></div>
-    <canvas class="pieces-canvas"></canvas>
+    <article>
+      <div class="left">
+        <div style="position: relative">
+          <p class="header">
+            <input id="j_start" type="button" value="取票" />
+            <input id="j_stop" type="button" value="观影" />
+          </p>
+          <h4>电影列表</h4>
+          <ul class="movie-list" id="j_movie-list"></ul>
+          <p>
+            <label for="">你还想看啥：</label
+            ><input type="text" id="j_movie-title" placeholder="电影名" />
+            <input type="text" id="j_movie-image" placeholder="电影封面" />
+            <input id="j_movie-add" type="button" value="请告诉我" />
+          </p>
+          <p class="tips">不要把全部电影都点一遍！！！</p>
+        </div>
+      </div>
+      <div class="right">
+        <div style="position: relative;">
+          <div class="movie" id="j_movie"></div>
+          <canvas class="pieces-canvas"></canvas>
+        </div>
+      </div>
+    </article>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script

@@ -17,14 +17,14 @@ const fetchMovieList = () => {
               $(
                 `<li class="movie-item">《${
                   movies[key].title
-                }》<span class="iconfont icon-check-circle"></span></li>`
+                }》<span class="iconfont icon-check-circle"></span><span class="iconfont icon-close-circle"></span></li>`
               )
             )
           : $(movieListObj).append(
               $(
                 `<li class="movie-item is-watched">《${
                   movies[key].title
-                }》<span class="iconfont icon-check-circle"></span></li>`
+                }》<span class="iconfont icon-check-circle"></span><span class="iconfont icon-close-circle"></span></li>`
               )
             );
       }
@@ -37,6 +37,9 @@ const fetchMovieList = () => {
 };
 fetchMovieList();
 document.querySelector("#j_movie-list").addEventListener("click", e => {
+  if (!e.target.classList.contains("movie-item")) {
+    return false;
+  }
   e.target.classList.toggle("is-watched");
   const index = Array.from(document.querySelectorAll(".movie-item")).indexOf(
     e.target
@@ -60,7 +63,25 @@ document.querySelector("#j_movie-list").addEventListener("click", e => {
     tid = lottery();
   }
 });
-
+document.querySelector("#j_movie-list").addEventListener("click", e => {
+  if (!e.target.classList.contains("icon-close-circle")) {
+    return false;
+  }
+  const index = Array.from(document.querySelectorAll(".movie-item")).indexOf(
+    e.target.parentNode
+  );
+  fetch("http://localhost:9999/api/movie/delete", {
+    body: JSON.stringify({
+      title: movies[index].title
+    }),
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(res => {
+    fetchMovieList();
+  });
+});
 function getRandom(lowerValue, upperValue) {
   return Math.floor(Math.random() * (upperValue - lowerValue + 1) + lowerValue);
 }

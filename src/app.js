@@ -23,9 +23,13 @@ router.patch("/api/movie/watched", (req, res) => {
 });
 
 router.post("/api/movie/add", (req, res) => {
-  console.log(req.body);
-  
   Movie.create(req.body, function(err, docs) {
+    res.end();
+  });
+});
+
+router.delete("/api/movie/delete", (req, res) => {
+  Movie.deleteOne({ title: req.body.title }, function(err, docs) {
     res.end();
   });
 });
