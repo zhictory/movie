@@ -97,10 +97,10 @@ let lottery = () =>
       movieWon = filter[getRandom(0, filter.length - 1)];
     } else {
       movieWon = {
-        title: "不，你什么都不想看",
+        title: "电影都看完了，要不要做点别的事",
         watched: false,
         image:
-          "http://5b0988e595225.cdn.sohucs.com/images/20181218/2a841d8bafd342abb6a17a3f73e51a56.jpeg"
+          "http://wx4.sinaimg.cn/large/ceeb653ely1fo0fg51fwmj20b40b4mzu.jpg"
       };
       clearInterval(tid);
       tid = null;
